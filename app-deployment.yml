@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: flask-server-deployment
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      components: flask-server
+  template:
+    metadata:
+      labels:
+        components: flask-server
+    spec:
+      containers:
+        - name: flask-python
+          image: anton143/flask-docker:v1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "150m"
